@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using LibraryApp.Models;
+using LibraryApp.Services;
 
 namespace LibraryApp
 {
@@ -7,13 +8,21 @@ namespace LibraryApp
     {
         static void Main(string[] args)
         {
-            var book = new Book("1984", "Оруэлл", 1949, 328);
+            var library = new Library();
 
-            IBorrowable borrowable = book; 
+            library.AddItem(new Book("1984", "Оруэлл", 1949, 328));
+            library.AddItem(new Book("Гарри Поттер", "Роулинг", 1997, 400));
+            library.AddItem(new Magazine("Science", "Редколлегия", 2023, 5));
 
-            borrowable.Borrow("Анна"); 
-            borrowable.Borrow("Иван"); 
-            borrowable.Return(); 
+
+            Console.WriteLine("=== Все издания ===");
+            library.GetAllItems().ForEach(item => item.DisplayInfo());
+
+            Console.WriteLine("\n=== Книги Роулинг ===");
+            library.GetBooksByAuthor("Роулинг").ForEach(b => b.DisplayInfo());
+
+            Console.WriteLine("\n=== Современные книги (после 2000) ===");
+            library.GetModernBookTitles().ForEach(Console.WriteLine);
 
             Console.ReadLine(); 
         }
