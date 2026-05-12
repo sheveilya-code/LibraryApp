@@ -3,23 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LibraryApp.Models;
 
-namespace LibraryApp.Models
+public class Book : LibraryItem, IBorrowable
 {
+    public bool IsAvailable { get; set; } = true;
+    public int Pages { get; set; }
 
-    public class Book : LibraryItem
+    public Book(string title, string author, int year, int pages)
+        : base(title, author, year)
     {
-        public int Pages { get; set; }
+        Pages = pages;
+    }
 
-        public Book(string title, string author, int year, int pages)
-            : base(title, author, year)
-        {
-            Pages = pages;
-        }
+    public override void DisplayInfo()
+    {
+        Console.WriteLine($"Книга: {Title} / {Author} ({Year}) — {Pages} стр.");
+    }
 
-        public override void DisplayInfo()
+    public void Borrow(string borrowerName)
+    {
+        if (IsAvailable)
         {
-            Console.WriteLine($"Книга: {Title} / {Author} ({Year}) — {Pages} стр.");
+            IsAvailable = false;
+            Console.WriteLine($"Книга '{Title}' выдана пользователю {borrowerName}");
         }
+        else
+        {
+            Console.WriteLine($"Книга '{Title}' уже выдана");
+        }
+    }
+
+    public void Return()
+    {
+        IsAvailable = true;
+        Console.WriteLine($"Книга '{Title}' возвращена");
     }
 }

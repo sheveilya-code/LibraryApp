@@ -7,19 +7,15 @@ namespace LibraryApp
     {
         static void Main(string[] args)
         {
-            var items = new List<LibraryItem>
-            {
-                new Book("1984", "Оруэлл", 1949, 328),
-                new Magazine("Science", "Редколлегия", 2023, 5),
-                new Book("Анна Каренина", "Толстой", 1877, 850)
-            };
+            var book = new Book("1984", "Оруэлл", 1949, 328);
 
-            foreach (var item in items)
-            {
-                item.DisplayInfo();
-            }
+            IBorrowable borrowable = book; 
 
-            Console.ReadLine(); // чтобы консоль не закрывалась сразу
+            borrowable.Borrow("Анна"); 
+            borrowable.Borrow("Иван"); 
+            borrowable.Return(); 
+
+            Console.ReadLine(); 
         }
     }
 }
