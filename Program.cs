@@ -1,5 +1,5 @@
-﻿using LibraryApp.Models;
-using System;
+﻿using System.Collections.Generic;
+using LibraryApp.Models;
 
 namespace LibraryApp
 {
@@ -7,22 +7,19 @@ namespace LibraryApp
     {
         static void Main(string[] args)
         {
-            try
+            var items = new List<LibraryItem>
             {
-                Book book1 = new Book("1984", "Дж. Оруэлл", 1949);
-                Book book2 = new Book("Гарри Поттер", "Дж. Роулинг", 1997);
-                Book book3 = new Book("Мастер и Маргарита", "М. Булгаков", 1967);
+                new Book("1984", "Оруэлл", 1949, 328),
+                new Magazine("Science", "Редколлегия", 2023, 5),
+                new Book("Анна Каренина", "Толстой", 1877, 850)
+            };
 
-                book1.DisplayInfo();
-                book2.DisplayInfo();
-                book3.DisplayInfo();
-            }
-            catch (Exception ex)
+            foreach (var item in items)
             {
-                Console.WriteLine($"Ошибка: {ex.Message}");
+                item.DisplayInfo();
             }
 
-            Console.ReadLine(); 
+            Console.ReadLine(); // чтобы консоль не закрывалась сразу
         }
     }
 }
